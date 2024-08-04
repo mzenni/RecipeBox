@@ -4,11 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/* 
+ * Madison Zenni
+ * Implementation file for the RecipeBox Class, contains the main method
+ */
+
 public class RecipeBox {
-	// Create the list of recipes
-	private ArrayList<Recipe> listOfRecipes;
 	
-	// Main method is the program's entry point
+	private ArrayList<Recipe> listOfRecipes;  // Create the list of recipes
+	
+	/**
+	 * Main method is the program's entry point
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		// Create an instance of the recipe box
 		RecipeBox recipeBox = new RecipeBox();
@@ -88,11 +96,18 @@ public class RecipeBox {
 		scanner.close(); 
 	}
 	
+	/**
+	 * Removes recipe from list
+	 * @param recipeBox
+	 * @param myMethods
+	 */
 	private void removeRecipe(RecipeBox recipeBox, MyMethods myMethods) {
+		// Check the list contains recipes to prevent errors 
 		if(recipeBox.listOfRecipes.size() < 1) {
 			System.out.println("Oops. You don't have any recipes. Enter a recipe to continue.");
 			return;
 		}
+		// Print recipe list, prompt user for selection, remove from list
 		printRecipeNames(recipeBox);
 		int count = recipeBox.listOfRecipes.size(); 	// number of recipes
 		int selection = myMethods.readInteger("Enter the recipe to remove", 1, count);
@@ -101,8 +116,12 @@ public class RecipeBox {
 		
 	}
 
+	/**
+	 * Prompts user for information to create new recipe
+	 * @param myMethods
+	 * @param scanner
+	 */
 	public void createRecipe(MyMethods myMethods, Scanner scanner) {
-		//Scanner scanner = new Scanner(System.in);
 		System.out.print("Enter Recipe Name: ");
 		String name = scanner.nextLine();
 		int servings = myMethods.readInteger("Enter serving size");
@@ -111,39 +130,56 @@ public class RecipeBox {
 		List<Ingredient> ingredientList = new ArrayList<Ingredient>(); 
 		for (int i = 0; i < numberOfIngredients; i++) {
 			System.out.printf("\nINGREDIENT %d", i+1);
-			//Ingredient newIngredient = new Ingredient(); 
 			Ingredient ingredient = Ingredient.createFromUserInput();
 			ingredientList.add(ingredient); 
 		}
 		Recipe recipe = new Recipe(name, servings, ingredientList, calories); 
 		addRecipe(recipe); 
 		System.out.printf("\n%s has been successfully added to the recipe box.\n", name); 
-		//scanner.close(); 
 	}
+	/**
+	 * Adds recipe to list of recipe
+	 * @param recipe
+	 */
 	public void addRecipe(Recipe recipe) {
 		listOfRecipes.add(recipe); 	
 	}
 
-	// Constructors
-	// RecipeBox() takes no arguments and will initialize the list of recipes
+	
+	/**
+	 * Constructors
+	 * RecipeBox() takes no arguments and will initialize the list of recipes
+	 */
 	public RecipeBox() {
 		this.listOfRecipes = new ArrayList<>(); 
 	}
 	
-	// RecipeBox(ArrayList) takes the existing list of recipes as a parameter and initializes the list of recipes with it
+	
+	/**
+	 * RecipeBox(ArrayList) takes the existing list of recipes as a parameter and initializes the list of recipes with it
+	 * @param listOfRecipes
+	 */
 	public RecipeBox(ArrayList<Recipe> listOfRecipes) {
 		this.listOfRecipes = listOfRecipes; 
 	}
 	
 	// Getters and Setters
+	/**
+	 * gets List of Recipes
+	 * @return List<Recipe>
+	 */
 	public List<Recipe> getListOfRecipes(){
 				return listOfRecipes;
 			}
+	/**
+	 * Sets recipe list to array list
+	 * @param listOfRecipes
+	 */
 	public void setListOfRecipes(List<Recipe> listOfRecipes) {
 				this.listOfRecipes = new ArrayList<>(listOfRecipes);
 			}
 
-	static int printMenu(MyMethods myMethods) {
+	public static int printMenu(MyMethods myMethods) {
 		System.out.println("Please choose from the following options:\n");
 		System.out.println("\t1. Print all recipe names");
 		System.out.println("\t2. Print all recipe details");
@@ -153,6 +189,10 @@ public class RecipeBox {
 		return myMethods.readInteger("Enter your selection", 1, 5);
 	}
 	
+	/**
+	 * Prints recipe names
+	 * @param recipeBox
+	 */
 	public void printRecipeNames(RecipeBox recipeBox) {
 		if(recipeBox.listOfRecipes.size() < 1) {
 			System.out.println("Oops. You don't have any recipes. Enter a recipe to continue.");
@@ -166,6 +206,10 @@ public class RecipeBox {
 		System.out.println(); 
 	}
 	
+	/**
+	 * Prints recipe information
+	 * @param recipeBox
+	 */
 	public void printRecipeDetails(RecipeBox recipeBox) {
 		if(recipeBox.listOfRecipes.size() < 1) {
 			System.out.println("Oops. You don't have any recipes. Enter a recipe to continue.");
